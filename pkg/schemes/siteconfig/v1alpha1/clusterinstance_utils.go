@@ -103,5 +103,14 @@ func IndexOfManifestByIdentity(target *ManifestReference, manifestRefs []Manifes
 			return i, nil
 		}
 	}
-	return -1, fmt.Errorf("ManifestReference (%s) not found", target.String())
+	return -1, fmt.Errorf("manifestReference (%s) not found", target.String())
+}
+
+// IsPaused checks if the ClusterInstance has the paused annotation.
+func (ci *ClusterInstance) IsPaused() bool {
+	if ci.Annotations == nil {
+		return false
+	}
+	_, exists := ci.Annotations[PausedAnnotation]
+	return exists
 }
